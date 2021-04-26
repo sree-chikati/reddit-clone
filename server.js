@@ -18,6 +18,7 @@ app.set('view engine', 'handlebars');
 
 // All requires
 require('./controllers/posts.js')(app);
+require('./controllers/comments.js')(app);
 require('./data/reddit-db'); // Set db
 
 
