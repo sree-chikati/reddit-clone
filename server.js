@@ -26,11 +26,6 @@ app.get('/', (req, res) => {
     res.render('home');
 })
 
-app.get('/posts/new', (req, res) => {
-    console.log('Loading posts-new')
-    res.render('posts-new');
-})
-
 app.listen(3000, () => {
     console.log('Reddit-Clone listening on port localhost:3000!');
 });

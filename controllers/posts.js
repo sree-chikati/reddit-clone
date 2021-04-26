@@ -1,6 +1,22 @@
 const Post = require('../models/post');
 
 module.exports = (app) => {
+    
+    // get all posts
+    app.get('/', (req, res) => {
+      Post.find({}).lean()
+        .then(posts => {
+          res.render('posts-index', { posts });
+        })
+        .catch(err => {
+          console.log(err.message);
+        })
+    })
+
+    app.get('/posts/new', (req, res) => {
+      console.log('Loading posts-new')
+      res.render('posts-new');
+    })
 
     // CREATE
     app.post('/posts/new', (req, res) => {
@@ -14,16 +30,16 @@ module.exports = (app) => {
       })
     });
 
-    // get all posts
-    app.get('/', (req, res) => {
-        Post.find({}).lean()
-          .then(posts => {
-            res.render('posts-index', { posts });
-          })
-          .catch(err => {
-            console.log(err.message);
-          })
-    })
+    // SUBREDDIT
+    app.get("/n/:subreddit", function(req, res) {
+      Post.find({ subreddit: req.params.subreddit }).lean()
+        .then(posts => {
+          res.render("posts-index", { posts });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    });
 
     // can search post by id
     app.get("/posts/:id", function(req, res) {
