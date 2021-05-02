@@ -2,9 +2,13 @@
   <div class="container-fluid">
 
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="/logout">Logout</a></li>
-      <li><a href="/login">Login</a></li>
-      <li><a href="/sign-up">Sign Up</a></li>
+      {{#if currentUser}}
+        <li><a href="/logout">Logout</a></li>
+        <a href="/posts/new" class="btn btn-primary navbar-btn">New Post</a>
+      {{else}}
+        <li><a href="/login">Login</a></li>
+        <li><a href="/sign-up">Sign Up</a></li>
+      {{/if}}
     </ul>
   </div>
 </div>
