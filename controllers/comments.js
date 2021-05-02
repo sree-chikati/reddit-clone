@@ -1,6 +1,6 @@
-const Post = require('../models/post');
 const Comment = require('../models/comment');
-const User = require("../models/user");
+const Post = require('../models/post');
+const User = require('../models/user');
 
 module.exports = function(app) {
 
@@ -8,7 +8,8 @@ module.exports = function(app) {
     app.post("/posts/:postId/comments", function(req, res) {
         // INSTANTIATE INSTANCE OF MODEL
         const comment = new Comment(req.body);
-        comment.author = req.user._id
+        comment.author = req.user._id;
+
         // SAVE INSTANCE OF Comment MODEL TO DB
         comment
             .save()
@@ -21,7 +22,7 @@ module.exports = function(app) {
                 return post.save();
             })
             .then(post => {
-                res.redirect(`/`);
+                res.redirect('/');
             })
             .catch(err => {
                 console.log(err);
