@@ -6,7 +6,6 @@ module.exports = function(app) {
 
     // CREATE Comment
     app.post("/posts/:postId/comments", function(req, res) {
-        // INSTANTIATE INSTANCE OF MODEL
         const comment = new Comment(req.body);
         comment.author = req.user._id;
 
@@ -14,15 +13,19 @@ module.exports = function(app) {
         comment
             .save()
             .then(comment => {
-                return Post.findById(req.params.postId);
+                return Promise.all([
+                    Post.findById(req.params.postId)
+                ]);
             })
-            .then(post => {
+            .then(([post, user]) => {
                 // unshift - adds an element to the front of an array
                 post.comments.unshift(comment);
-                return post.save();
+                return Promise.all([
+                    post.save()
+                ]);
             })
             .then(post => {
-                res.redirect('/');
+                res.redirect(`/posts/${req.params.postId}`);
             })
             .catch(err => {
                 console.log(err);
