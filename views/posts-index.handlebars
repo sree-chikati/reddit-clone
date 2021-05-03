@@ -3,14 +3,28 @@
         <ul>
             {{#each posts}}
                 <li class="list-group-item">
+                    {{!-- title --}}
                     <div class="lead">
-                        <a href="/posts/{{this._id}}" class="lead">{{this.title}}</a>
+                        <a href="/posts/{{this._id}}">{{this.title}}</a>
                     </div>
-                    <a href="{{this.url}}" target="_blank">{{this.url}}</a>
-                    <div><small>Posted by: {{this.author.username}}</small></div>
+                    {{!-- url--}}
+                    <a href="{{post.url}}" target="_blank">{{post.url}}<a>
+                    {{!-- author --}}
+                    <div>
+                        <small>{{this.author.username}}</small>
+                    </div>
+                    {{!-- subreddit --}}
                     <div class="text-right">
-                        <a href="/n/{{this.subreddit}}">{{this.subreddit}}</a>
+                        <a href="/n/{{post.subreddit}}">{{post.subreddit}}<a>
                     </div>
+
+                    <form class="vote-up" data-id="{{this._id}}">
+                        <button type="submit">Vote Up</button>
+                    </form>
+                    |
+                    <form class="vote-down" data-id="{{this._id}}">
+                        <button type="submit">Vote Down</button>
+                    </form>
                 </li>
             {{/each}}
         </ul>
